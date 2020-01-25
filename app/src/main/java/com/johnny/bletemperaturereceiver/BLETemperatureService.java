@@ -203,12 +203,12 @@ public class BLETemperatureService extends Service {
 					int humidityStart = value.indexOf("H=");
 					double temperature = Double.parseDouble(value.substring(2, humidityStart - 2));
 					double humidity = Double.parseDouble(value.substring(humidityStart+2));
-					startNotificationForeground(temperature);
 					final Intent intent = new Intent(ACTION_TEMPERATURERE_UPDATE);
 					intent.putExtra("UUID", uuid);
 					intent.putExtra(EXTRA_TEMPERATURERE_DATA, temperature);
 					intent.putExtra(EXTRA_HUMIDITY_DATA, humidity);
 					LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+//					startNotificationForeground(temperature);
 				} catch(NumberFormatException ex){
 					Log.d(TAG, "Could not parse temperature and humidity from: " + value);		// handle exception
 				}
