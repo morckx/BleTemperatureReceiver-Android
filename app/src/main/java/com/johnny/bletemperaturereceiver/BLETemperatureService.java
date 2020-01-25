@@ -198,16 +198,20 @@ public class BLETemperatureService extends Service {
 		try {
 			String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
 			if (BLETemperatureService.CHAR_TEMPERATURE_UUID.equals(uuid)) {
-				byte pData[] = characteristic.getValue();
-				double temperature = ((pData[2]-48)*10 + pData[3]-48 + (pData[5]-48)*0.1);
-				double humidity = ((pData[9]-48)*10 + pData[10]-48 + (pData[12]-48)*0.1);
-				startNotificationForeground(temperature);
-
-				final Intent intent = new Intent(ACTION_TEMPERATURERE_UPDATE);
-				intent.putExtra("UUID", uuid);
-				intent.putExtra(EXTRA_TEMPERATURERE_DATA, temperature);
-				intent.putExtra(EXTRA_HUMIDITY_DATA, humidity);
-				LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+				String value = characteristic.getStringValue(0);
+				try {
+					int humidityStart = value.indexOf("H=");
+					double temperature = Double.parseDouble(value.substring(2, humidityStart - 2));
+					double humidity = Double.parseDouble(value.substring(humidityStart+2));
+					startNotificationForeground(temperature);
+					final Intent intent = new Intent(ACTION_TEMPERATURERE_UPDATE);
+					intent.putExtra("UUID", uuid);
+					intent.putExtra(EXTRA_TEMPERATURERE_DATA, temperature);
+					intent.putExtra(EXTRA_HUMIDITY_DATA, humidity);
+					LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+				} catch(NumberFormatException ex){
+					Log.d(TAG, "Could not parse temperature and humidity from: " + value);		// handle exception
+				}
 			} else {
 				Log.v(TAG, "[" + currentDateTimeString + "] UUID: " + uuid.toString());
 			}

@@ -18,8 +18,8 @@
 	<string name="bluetooth_is_not_available">Bluetooth is not available</string>
 	<string name="device_connected" formatted="false">%s - ready</string>
 	<string name="notification_temperature">Temperature: </string>
-	<string name="temperature_template">%.1f°C</string>
-	<string name="humidity_template">%.1f%%</string>
+	<string name="temperature_template">%02.1f°C</string>
+	<string name="humidity_template">%02.1f%%</string>
 	<string name="temperature_service_not_found">Temperature Service not found! Disconnecting.</string>
 	<string name="no_name_device">NoName device</string>
 	<string name="rssi_value">Rssi = </string>
