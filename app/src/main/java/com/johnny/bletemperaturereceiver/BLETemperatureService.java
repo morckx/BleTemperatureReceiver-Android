@@ -64,8 +64,8 @@ public class BLETemperatureService extends Service {
 
 	public static final UUID CCCD = UUID.fromString("00002902-0000-1000-8000-00805f9b34fb");
 
-	public static final UUID SERVICE_TEMPERATURE_UUID = UUID.fromString("00001809-0000-1000-8000-00805F9B34FB");
-	public static final UUID CHAR_TEMPERATURE_UUID = UUID.fromString("00002A1C-0000-1000-8000-00805F9B34FB");
+	public static final UUID SERVICE_TEMPERATURE_UUID = UUID.fromString("226c0000-6476-4566-7562-66734470666d");
+	public static final UUID CHAR_TEMPERATURE_UUID = UUID.fromString("226caa55-6476-4566-7562-66734470666d");
 
 	// http://stackoverflow.com/questions/17910322/android-ble-api-gatt-notification-not-received
 
