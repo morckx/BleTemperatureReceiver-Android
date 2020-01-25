@@ -59,6 +59,7 @@ public class BLETemperatureService extends Service {
 	public final static String ACTION_MESSAGE_SERVICE_ONLINE = "blereceiver.ACTION_MESSAGE_SERVICE_ONLINE";
 
 	public final static String EXTRA_TEMPERATURERE_DATA = "blereceiver.EXTRA_TEMPERATURERE_DATA";
+	public final static String EXTRA_HUMIDITY_DATA = "blereceiver.EXTRA_HUMIDITY_DATA";
 
 	public final static String NOT_SUPPORT_TEMPERATURE_SERVICE = "blereceiver.NOT_SUPPORT_TEMPERATURE_SERVICE";
 
@@ -197,13 +198,15 @@ public class BLETemperatureService extends Service {
 		try {
 			String currentDateTimeString = DateFormat.getTimeInstance().format(new Date());
 			if (BLETemperatureService.CHAR_TEMPERATURE_UUID.equals(uuid)) {
-				double value = characteristic.getFloatValue(BluetoothGattCharacteristic.FORMAT_FLOAT,
-															/* offset */ 1);
-				startNotificationForeground(value);
+				byte pData[] = characteristic.getValue();
+				double temperature = ((pData[2]-48)*10 + pData[3]-48 + (pData[5]-48)*0.1);
+				double humidity = ((pData[9]-48)*10 + pData[10]-48 + (pData[12]-48)*0.1);
+				startNotificationForeground(temperature);
 
 				final Intent intent = new Intent(ACTION_TEMPERATURERE_UPDATE);
 				intent.putExtra("UUID", uuid);
-				intent.putExtra(EXTRA_TEMPERATURERE_DATA, value);
+				intent.putExtra(EXTRA_TEMPERATURERE_DATA, temperature);
+				intent.putExtra(EXTRA_HUMIDITY_DATA, humidity);
 				LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
 			} else {
 				Log.v(TAG, "[" + currentDateTimeString + "] UUID: " + uuid.toString());

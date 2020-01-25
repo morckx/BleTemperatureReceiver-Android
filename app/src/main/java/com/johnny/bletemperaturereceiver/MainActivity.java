@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 	private BluetoothAdapter mBtAdapter;
 	private TextView labelDeviceName;
 	private TextView labelTemperature;
+	private TextView labelHumidity;
 	private Button buttonConnect;
 
 	private BLETemperatureService mService = null;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 		}
 
 		labelTemperature = (TextView) findViewById(R.id.label_temperature);
+		labelHumidity = (TextView) findViewById(R.id.label_humidity);
 		labelDeviceName = (TextView) findViewById(R.id.label_device_name);
 
 		buttonConnect = (Button) findViewById(R.id.btn_connect);
@@ -196,6 +198,9 @@ public class MainActivity extends AppCompatActivity {
 					public void run() {
 						double temperature = intent.getDoubleExtra(BLETemperatureService.EXTRA_TEMPERATURERE_DATA, 0);
 						labelTemperature.setText(String.format(getString(R.string.temperature_template), temperature));
+						double humidity = intent.getDoubleExtra(BLETemperatureService.EXTRA_HUMIDITY_DATA, 0);
+						labelHumidity.setText(String.format(getString(R.string.humidity_template), humidity));
+
 					}
 				});
 			}
@@ -219,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
 		} else {
 			buttonConnect.setText(R.string.connect);
 			labelDeviceName.setText(R.string.not_connected);
-			labelTemperature.setText(R.string.temperature_unknown);
+			//labelTemperature.setText(R.string.temperature_unknown);
 		}
 	}
 
