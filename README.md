@@ -2,7 +2,7 @@ BleTemperatureReceiver-Android
 ===
 <img src="https://raw.githubusercontent.com/j796160836/BleTemperatureReceiver-Android/master/screenshot/icon.png" width="100" />
 
-BLE temperature receiver for Android
+BLE temperature and humidity receiver for Android, adapted to Xiaomi Mijia Hygrometer Thermometer.
 
 ## Screenshot  
 
@@ -10,15 +10,15 @@ BLE temperature receiver for Android
 
 ## Requirement
 
-Android devices need Android 4.3 (API 18) and above with Bluetooth LE chip.
+Android devices need Android 5.0 (API 21) and above with Bluetooth LE chip.
 
 ## Setup
 
 1. Setup `Android Studio` IDE and `Android SDK`
 2. Clone and import project
 
-	```
-git clone git@github.com:j796160836/BleTemperatureReceiver-	Android.git
+	```bash
+	git clone git@github.com:morckx/BleTemperatureReceiver-Android.git
 	```
 
 3. Run the `app` module
